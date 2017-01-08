@@ -1,11 +1,14 @@
 from Model import GPSData
 from Model import sunLocation
 from Model import  driverInfo
-
+from Model import Directions
+from Model import carWindow
 #import the gpio for the rasbery pie
 
 class lordsShiva():
 
+    sunDirection = Directions
+    windowToTint = carWindow
     def __init__(self, GPSData, sunLocation, driverInfo):
         self.GPS = GPSData
         self.sun = sunLocation
@@ -29,32 +32,56 @@ class lordsShiva():
     '''
     def shouldTintWindows(self):
 
-
-        if self.whatSideSunIsOn() == "back":
-            self.tintBackSide()
-        elif self.whatSideSunIsOn() == "right":
-            self.tintRightSide()
-        elif self.whatSideSunIsOn() == "left":
-            self.tintLeftSide()
+        if (self.shouldWindowsBeTinted() == True):
+            if self.WhatSideShouldBeTinted() == "back":
+                 self.tintBackSide()
+             elif self.WhatSideShouldBeTinted() == "right":
+                self.tintRightSide()
+            elif self.WhatSideShouldBeTinted() == "left":
+                self.tintLeftSide()
+            else:
+                self.tintFrontSide()
         else:
-            self.tintFrontSide()
+            return False
+
+    def shouldWindowsBeTinted(self):
+        return True
 
     '''
-    Determine the position of the sun around the car, depends on 2 variables:
-        - azimuth angle
-        - heading (GPS.heading)
+        direction  = abs (azimuth angle - driving angle)
+        in total 4 sides sun can be on and 4 sides car could be facing
+        if rounded up to 4. could be
+
+        For Accuracy we could use
+        - 0-45
+        - 46-90
+        - 91-135
+        - 136-180
+        - 181-225
+        - 225-270
+        - 271-315
+        - 316-360
+
+        8 cases of car  * 8 cases for sun = 64 cases
     '''
-    def whatSideSunIsOn(self):
+
+    def WhatSideShouldBeTinted(self):
+        return False
+
+    '''
+        Get this from the GPS.
+    '''
+    def directionOfCar(self):
+        return Directions.NORTH
+
+    '''
+        Determine the position of the sun around the car, depends on 2 variables:
+            - azimuth angle
+            - heading (GPS.heading)
+    '''
+
+    def directionOfSun(self):
         return "front"
-
-    '''
-    direction  = abs (azimuth angle - driving angle)
-    direction:
-    0 front  +- 60
-    90 right +- 60
-    -90 left +- 60
-    180 back +- 60
-    '''
 
     def tintLeftSide(self):
         return True
