@@ -1,0 +1,55 @@
+class processData():
+
+localLatitude = 49.2827
+localLatitudeDirection = "N"
+localLongitude = float(123.1207)
+localLongitudeDirection = "W"
+
+
+dayOfTheYear =  time.localtime().tm_yday
+
+B = (360/365) * (dayOfTheYear - 81)
+
+utcTimeNow = datetime.utcnow()
+localTime = datetime.now()
+
+timeDelta = localTime - utcTimeNow
+minutes = timeDelta.days * 1440 + timeDelta.seconds / 60
+
+EOT = 9.87*(math.sin(2*B)) - 7.53 * (math.cos (B)) - 1.5*(math.sin (B)) #equationOfTime
+LSTM = 15 * timeDelta
+TC = 4 * (localLongitude - LSTM) + EOT
+
+#LT??????
+LST = (LT + TC/60)
+HRA = 15(LST - 12) #Hour Angle
+decAngle  = 23.45 * (math.sin (B)) #decilination
+print ("The value of decilination is %d." % decilination)
+
+#alpha?????
+azmuthAngle = acos (((math.sin(d) * math.cos(lat)) - (math.cos(d)*math.sin(lat)*math.cos(HRA)))/math.cos(alpha))
+print ("AZMuth Angle is %d." % azmuthAngle)
+
+if azmuthAngle == 90:
+	print ("Turn signal on.")
+elif azmuthAngle < 70:
+	print ("Turn signal off.")
+
+
+API Response : http://api.sunrise-sunset.org/json?lat=36.7201600&lng=-4.4203400&date=today
+    {
+      "results":
+      {
+        "sunrise":"7:27:02 AM",
+        "sunset":"5:05:55 PM",
+        "solar_noon":"12:16:28 PM",
+        "day_length":"9:38:53",
+        "civil_twilight_begin":"6:58:14 AM",
+        "civil_twilight_end":"5:34:43 PM",
+        "nautical_twilight_begin":"6:25:47 AM",
+        "nautical_twilight_end":"6:07:10 PM",
+        "astronomical_twilight_begin":"5:54:14 AM",
+        "astronomical_twilight_end":"6:38:43 PM"
+      },
+       "status":"OK"
+    }
