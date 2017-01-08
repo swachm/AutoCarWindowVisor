@@ -8,7 +8,7 @@ using inCar/ user Input to get and set following data
     - Cloudiness
 '''
 
-class driverInfo():
+class DriverInfo():
 
     def __init__(self, verticle, horizontal, glassAngle, shadeLength):
         self.verticle = verticle

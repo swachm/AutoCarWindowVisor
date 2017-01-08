@@ -18,7 +18,7 @@ need data from the GPS Class:
 
 GPSInfo = GPSData.GPSData
 
-class sunLocation():
+class SunLocation():
     """docstring for httpRequest"""
     currentDataURL = "http://api.sunrise-sunset.org/json?lat="
 

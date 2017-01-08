@@ -1,14 +1,14 @@
 from Model import GPSData
-from Model import sunLocation
-from Model import  driverInfo
+from Model import SunLocation
+from Model import  DriverInfo
 from Model import Directions
-from Model import carWindow
+from Model import CarWindow
 #import the gpio for the rasbery pie
 
-class lordsShiva():
+class Logic():
 
     sunDirection = Directions
-    windowToTint = carWindow
+    windowToTint = CarWindow
     def __init__(self, GPSData, sunLocation, driverInfo):
         self.GPS = GPSData
         self.sun = sunLocation
@@ -34,7 +34,7 @@ class lordsShiva():
 
         if (self.shouldWindowsBeTinted() == True):
             if self.WhatSideShouldBeTinted() == "back":
-                 self.tintBackSide()
+                self.tintBackSide()
              elif self.WhatSideShouldBeTinted() == "right":
                 self.tintRightSide()
             elif self.WhatSideShouldBeTinted() == "left":
@@ -96,4 +96,6 @@ class lordsShiva():
         return True
 
 def main ():
-    shiv = lordsShiva()
+    shiv = Logic()
+
+main()
