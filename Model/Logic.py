@@ -97,5 +97,6 @@ class Logic():
 
 def main ():
     shiv = Logic()
+    shiv.shouldTintWindows()
 
 main()
