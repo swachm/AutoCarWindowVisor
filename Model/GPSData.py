@@ -28,6 +28,11 @@ class GPSData():
         self.azimuthAngle = azimuthAngle
         self.UTC = UTC
 
+    def __init__(self, heading, elevationAngle, azimuthAngle):
+        self.heading = heading
+        self.elevationAngle = elevationAngle
+        self.azimuthAngle = azimuthAngle
+
     @property
     def latitude(self):
         return self._latitude
@@ -66,7 +71,7 @@ class GPSData():
 
     @heading.setter
     def heading(self, value):
-        self._heading= value
+        self._heading= int(value)
 
     @property
     def climb(self):
@@ -82,7 +87,7 @@ class GPSData():
 
     @elevationAngle.setter
     def elevationAngle(self, value):
-        self._elevationAngle = value
+        self._elevationAngle = int(value)
 
     @property
     def azimuthAngle(self):
@@ -90,7 +95,7 @@ class GPSData():
 
     @azimuthAngle.setter
     def azimuthAngle(self, value):
-        self._azimuthAngle = value
+        self._azimuthAngle = int(value)
 
     @property
     def UTC(self):

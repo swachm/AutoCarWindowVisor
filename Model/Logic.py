@@ -1,5 +1,6 @@
 from Model import GPSData
 from Model import SunLocation
+from Model.SunLocation import SunLocation
 
 from Model.SunTime import SunTime
 
@@ -11,8 +12,8 @@ import datetime
 class Logic():
     localTime = datetime.datetime.now()
     windowToTint = CarWindow
-    sunTime = SunLocation
-    gpsdata = GPSData
+    sunTime = SunLocation.SunLocation.parseCurrentData()
+    gpsdata = GPSData(1, 12, 120) #heading, elevationAngle, azimuthAngle
 
     def __init__(self, GPSData, sunLocation, driverInfo):
         self.GPS = GPSData
@@ -20,10 +21,8 @@ class Logic():
         self.driver = driverInfo
 
     def shouldWindowsBeTinted(self):
-        
 
-
-        if self.localTime > self.sunTime or self.localTime < self.sunTime:
+        if self.localTime > self.sunTime.sunset or self.localTime < self.sunTime.sunrise:
             return False
 
         if (self.gpsdata.GPSData.elevationAngle > 60 and self.gpsdata.GPSData.elevationAngle < 120):
@@ -33,18 +32,18 @@ class Logic():
 
         if angle < 90 or angle > 270:
             self.tintFrontSide()
-        elif angle < 180:
+        if angle < 180:
             self.tintLeftSide()
-        elif angle > 90 and angle < 270:
+        if angle > 90 and angle < 270:
             self.tintBackSide()
-        elif angle > 180:
+        if angle > 180:
             self.tintRightSide()
 
     def tintLeftSide(self):
         return True
 
     def tintRightSide(self):
-        return False
+        return True
 
     def tintFrontSide(self):
         return True
