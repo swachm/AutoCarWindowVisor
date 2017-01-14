@@ -1,10 +1,9 @@
 class SunTime():
 
-    def __init__(self, sunrise, sunset,  solarNoon, currentCloudiness):
+    def __init__(self, sunrise, sunset, currentCloudiness):
         self.sunrise = sunrise
         self.sunset = sunset
         self.currentCloudiness = currentCloudiness
-
 
     @property
     def sunrise(self):
@@ -14,7 +13,6 @@ class SunTime():
     def sunrise(self, value):
         self._sunrise = int(value)
 
-
     @property
     def sunset(self):
         return self._sunset
@@ -22,7 +20,6 @@ class SunTime():
     @sunset.setter
     def sunset(self, value):
         self._sunset = int(value)
-
 
     @property
     def currentCloudiness(self):
