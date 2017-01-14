@@ -99,7 +99,3 @@ class GPSData():
     @UTC.setter
     def UTC(self, value):
         self._UTC = value
-
-    def getDataFromGPS(self):
-        #GPS =  GPSData()
-        return 0

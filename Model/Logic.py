@@ -1,8 +1,6 @@
 from Model import GPSData
 from Model import SunLocation
 
-
-
 from Model.SunTime import SunTime
 
 from Model import CarWindow
@@ -22,6 +20,9 @@ class Logic():
         self.driver = driverInfo
 
     def shouldWindowsBeTinted(self):
+        
+
+
         if self.localTime > self.sunTime or self.localTime < self.sunTime:
             return False
 
