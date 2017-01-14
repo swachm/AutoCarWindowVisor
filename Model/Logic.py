@@ -1,87 +1,43 @@
 from Model import GPSData
 from Model import SunLocation
-from Model import  DriverInfo
-from Model import Directions
+
+
+
+from Model.SunTime import SunTime
+
 from Model import CarWindow
+import datetime
+
 #import the gpio for the rasbery pie
 
 class Logic():
-
-    sunDirection = Directions
+    localTime = datetime.datetime.now()
     windowToTint = CarWindow
+    sunTime = SunLocation
+    gpsdata = GPSData
+
     def __init__(self, GPSData, sunLocation, driverInfo):
         self.GPS = GPSData
         self.sun = sunLocation
         self.driver = driverInfo
 
-    '''
-    Parameters which determine should the windows be tinted
-        - time of the day
-        - What side sun is on
-        - elevation angle
-        - driver horizontal
-        - driver verticle
-        - car window angle
-    '''
-    '''
-    4 case when driving:
-     - sun on the left side     // have to calculate
-     - sun on the right side    // have to calculate
-     - sun on the back side     // auto tinting on rearview camera, could use same circuit to tint back window
-     - sun at front             // calculate
-    '''
-    def shouldTintWindows(self):
-
-        if (self.shouldWindowsBeTinted() == True):
-            if self.WhatSideShouldBeTinted() == "back":
-                self.tintBackSide()
-             elif self.WhatSideShouldBeTinted() == "right":
-                self.tintRightSide()
-            elif self.WhatSideShouldBeTinted() == "left":
-                self.tintLeftSide()
-            else:
-                self.tintFrontSide()
-        else:
+    def shouldWindowsBeTinted(self):
+        if self.localTime > self.sunTime or self.localTime < self.sunTime:
             return False
 
-    def shouldWindowsBeTinted(self):
-        return True
+        if (self.gpsdata.GPSData.elevationAngle > 60 and self.gpsdata.GPSData.elevationAngle < 120):
+            return False
 
-    '''
-        direction  = abs (azimuth angle - driving angle)
-        in total 4 sides sun can be on and 4 sides car could be facing
-        if rounded up to 4. could be
+        angle = ((360 - (self.gpsdata.GPSData.azimuthAngle % 360)) + self.gpsdata.GPSData.heading) %360
 
-        For Accuracy we could use
-        - 0-45
-        - 46-90
-        - 91-135
-        - 136-180
-        - 181-225
-        - 225-270
-        - 271-315
-        - 316-360
-
-        8 cases of car  * 8 cases for sun = 64 cases
-    '''
-
-    def WhatSideShouldBeTinted(self):
-        return False
-
-    '''
-        Get this from the GPS.
-    '''
-    def directionOfCar(self):
-        return Directions.NORTH
-
-    '''
-        Determine the position of the sun around the car, depends on 2 variables:
-            - azimuth angle
-            - heading (GPS.heading)
-    '''
-
-    def directionOfSun(self):
-        return "front"
+        if angle < 90 or angle > 270:
+            self.tintFrontSide()
+        elif angle < 180:
+            self.tintLeftSide()
+        elif angle > 90 and angle < 270:
+            self.tintBackSide()
+        elif angle > 180:
+            self.tintRightSide()
 
     def tintLeftSide(self):
         return True
