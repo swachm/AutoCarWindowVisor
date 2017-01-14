@@ -5,12 +5,11 @@ from PIL import Image
 
 elevation = input("Enter Elevation angle: ")
 alpha = input("Enter Azimuth angle: ")
-heading = input("enter heading: ")
+heading = input("Enter heading: ")
 
 testGPS = GPSData(heading, elevation, alpha)
-sunTime = SunLocation()
 
-testCar = Logic(testGPS, sunTime)
+testCar = Logic(testGPS)
 testCar.shouldWindowsBeTinted()
 
 pic = ""
@@ -19,7 +18,7 @@ if testCar.carFront:
         pic = "assets/frontRightTint.png"
     else:
         if testCar.carLeft:
-            pic = "assets/frontLeftTing.png"
+            pic = "assets/frontLeftTint.png"
         else:
             pic = "assets/frontTint.png"
 elif testCar.carBack:
@@ -27,7 +26,7 @@ elif testCar.carBack:
         pic = "assets/backRightTint.png"
     else:
         if testCar.carLeft:
-            pic = "assets/backLeft.png"
+            pic = "assets/backLeftTint.png"
         else:
             pic = "assets/backTint.png"
 
@@ -37,6 +36,6 @@ if not testCar.carFront and not testCar.carBack:
     if testCar.carLeft:
         pic = "assets/leftTint.png"
     if not testCar.carRight and not testCar.carLeft:
-        pic = "assests/noTint.png"
+        pic = "assets/noTint.png"
 
 Image.open(pic).show()

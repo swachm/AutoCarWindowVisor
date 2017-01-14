@@ -1,53 +1,41 @@
-from Model import GPSData
-from Model.SunLocation import SunLocation
 import datetime
 
-#import the gpio for the rasbery pie
 
-class Logic():
+class Logic:
+
     localTime = datetime.datetime.now()
-    sunTime = SunLocation.SunLocation.parseCurrentData()
-    gpsdata = GPSData(1, 12, 120)
-    # GPSdata (heading, elevationAngle, azimuthAngle)
+    carLeft = carRight = carFront = carBack = False
 
-    def __init__(self, GPSData, sunLocation, driverInfo):
+    def __init__(self, GPSData):
         self.GPS = GPSData
-        self.sun = sunLocation
-        self.driver = driverInfo
 
     def shouldWindowsBeTinted(self):
 
-        if self.localTime > self.sunTime.sunset or self.localTime < self.sunTime.sunrise:
+        if 60 < self.GPS.elevationAngle < 120:
+            print("GPS Elevation angle shows no tinting required")
+            return False
+        if 180 < self.GPS.elevationAngle < 360:
+            print("Sun is below the horizon")
             return False
 
-        if (self.gpsdata.GPSData.elevationAngle > 60 and self.gpsdata.GPSData.elevationAngle < 120):
-            return False
-
-        angle = ((360 - (self.gpsdata.GPSData.azimuthAngle % 360)) + self.gpsdata.GPSData.heading) %360
+        angle = ((360 - (self.GPS.azimuthAngle % 360)) + self.GPS.heading) % 360
 
         if angle < 90 or angle > 270:
-            self.tintFrontSide()
-        if angle < 180:
-            self.tintLeftSide()
-        if angle > 90 and angle < 270:
-            self.tintBackSide()
+            self.carFront = True
+        else:
+            self.carFront = False
+
+        if 0 < angle < 180:
+            self.carLeft = True
+        else:
+            self.carLeft = False
+
+        if 90 < angle < 270:
+            self.carBack = True
+        else:
+            self.carBack = False
+
         if angle > 180:
-            self.tintRightSide()
-
-    def tintLeftSide(self):
-        return True # replace with show
-
-    def tintRightSide(self):
-        return True
-
-    def tintFrontSide(self):
-        return True
-
-    def tintBackSide(self):
-        return True
-
-def main ():
-    shiv = Logic()
-    shiv.shouldTintWindows()
-
-main()
+            self.carRight = True
+        else:
+            self.carRight = False

@@ -17,16 +17,17 @@ using GPS chip to get and set following data
 
 class GPSData():
 
-    def __init__(self, latitude, longitude, altitude, speed, heading, climb, elevationAngle, azimuthAngle, UTC):
-        self.latitude = latitude
-        self.longitude = longitude
-        self.altitude = altitude
-        self.speed = speed
-        self.heading = heading
-        self.climb = climb
-        self.elevationAngle = elevationAngle
-        self.azimuthAngle = azimuthAngle
-        self.UTC = UTC
+
+   # def __init__(self, latitude, longitude, altitude, speed, heading, climb, elevationAngle, azimuthAngle, UTC):
+    #    self.latitude = latitude
+    #    self.longitude = longitude
+    #    self.altitude = altitude
+    #    self.speed = speed
+    #    self.heading = heading
+    #   self.climb = climb
+        #self.elevationAngle = elevationAngle
+        #self.azimuthAngle = azimuthAngle
+        #self.UTC = UTC
 
     def __init__(self, heading, elevationAngle, azimuthAngle):
         self.heading = heading
