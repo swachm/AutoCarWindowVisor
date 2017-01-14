@@ -1,19 +1,14 @@
 from Model import GPSData
-from Model import SunLocation
 from Model.SunLocation import SunLocation
-
-from Model.SunTime import SunTime
-
-from Model import CarWindow
 import datetime
 
 #import the gpio for the rasbery pie
 
 class Logic():
     localTime = datetime.datetime.now()
-    windowToTint = CarWindow
     sunTime = SunLocation.SunLocation.parseCurrentData()
-    gpsdata = GPSData(1, 12, 120) #heading, elevationAngle, azimuthAngle
+    gpsdata = GPSData(1, 12, 120)
+    # GPSdata (heading, elevationAngle, azimuthAngle)
 
     def __init__(self, GPSData, sunLocation, driverInfo):
         self.GPS = GPSData
@@ -40,7 +35,7 @@ class Logic():
             self.tintRightSide()
 
     def tintLeftSide(self):
-        return True
+        return True # replace with show
 
     def tintRightSide(self):
         return True

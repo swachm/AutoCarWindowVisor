@@ -29,5 +29,5 @@ class SunTime():
         return self._currentCloudiness
 
     @currentCloudiness.setter
-    def currentTemp(self, value):
-        self._currentTemp = int(value)
+    def currentCloudiness(self, value):
+        self._sunset = int(value)
