@@ -13,4 +13,4 @@ Elevation Angle: Angle of the Sun from the horizon.
 Heading: The direction car is facing.
 
 
-![alt tag](http://imgur.com/haofkhT)
+![alt tag](http://i.imgur.com/haofkhT.png)
