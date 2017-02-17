@@ -1,4 +1,4 @@
-# AutoCarWindowVisor
+# Auto Car Window Visor
 
 This hack is designed to create window tinting based on the conditions: time of the day, latitude, longitude, and heading of the car. The software uses an algorithm to determine the angle of the car relative to the sun. This dictates which window of the car should be tinted.
 
